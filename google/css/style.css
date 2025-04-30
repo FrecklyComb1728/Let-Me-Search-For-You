@@ -1,0 +1,140 @@
+.container {
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 200px;
+    background-color: #fff;
+}
+
+.container h1 {
+    margin-bottom: 28px;
+}
+
+.container h1 img {
+    height: 30px;
+    vertical-align: middle;
+    margin: 0 8px;
+}
+
+#kw {
+    width: 584px;
+    height: 46px;
+    padding: 0 24px;
+    font: 16px arial;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    vertical-align: top;
+    outline: none;
+    margin-right: 0;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(32,33,36,0.12);
+    transition: all 200ms cubic-bezier(0.4,0.0,0.2,1);
+}
+
+#kw:hover {
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+    border-color: #e8eaed;
+}
+
+#kw:focus {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(32,33,36,0.28);
+    border-color: #8ab4f8;
+}
+
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    cursor: pointer;
+    height: 36px;
+    line-height: 27px;
+    min-width: 64px;
+    padding: 0 24px;
+    border: 1px solid #f8f9fa;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c4043;
+    text-align: center;
+    transition: all 200ms cubic-bezier(0.4,0.0,0.2,1);
+}
+
+.btn:hover {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    background-color: #f8f9fa;
+    border: 1px solid #dadce0;
+    color: #202124;
+}
+#instructions {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 16px 24px;
+    color: #3c4043;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.link {
+    margin-top: 48px;
+    display: block;
+}
+
+.copyable {
+    width: 100%;
+    max-width: 584px;
+    padding: 12px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #202124;
+    margin-bottom: 16px;
+}
+
+a.link_button {
+    display: inline-block;
+    min-width: 54px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px;
+    margin: 0 4px;
+    background-color: #f8f9fa;
+    color: #3c4043;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+}
+
+a.link_button:hover {
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    background-color: #f8f9fa;
+    border: 1px solid #dadce0;
+    color: #202124;
+}
+
+#arrow{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+footer{
+    color: #5f6368;
+    text-align: center;
+}
+footer a{
+    color: #5f6368;
+    text-decoration: none;
+}

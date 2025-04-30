@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.search-wrapper {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.logo-container {
+    margin-bottom: 30px;
+}
+
+.bing-logo {
+    height: 30px;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 24px;
+    border: 2px solid #0078d4;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.search-icon {
+    padding: 0 10px;
+}
+
+.search-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #666;
+}
+
+.search-text {
+    flex: 1;
+    height: 44px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    padding: 0 10px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0078d4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
+}
+
+.btn:hover {
+    background-color: #006cbd;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.2);
+}
+
+#instructions {
+    margin: 20px 0;
+    color: #666;
+    font-size: 16px;
+}
+
+.link {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.copyable {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 120, 212, 0.3);
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.link_button {
+    display: inline-block;
+    padding: 10px 24px;
+    margin: 0 8px;
+    color: #0078d4;
+    text-decoration: none;
+    border: 1px solid #0078d4;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.link_button:hover {
+    background-color: #0078d4;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.2);
+}
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #666;
+    z-index: 1;
+}
+
+footer a {
+    color: #0078d4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#arrow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+}

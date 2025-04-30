@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="cn">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="keywords" content="bing,必应,需要我帮你bing吗,需要我帮你bing么,不会bing"/>
+    <meta name="description"content="需要我帮你bing么" />
+    <meta property="og:site_name" content="需要我帮你bing么">
+    <meta property="og:description" content="需要我帮你bing么">
+    <meta property="og:title" content="需要我帮你bing么">
+    <meta property="og:url" content="https://www.bing.com">
+    <meta property="og:image" content="https://edgestatic.azureedge.net/shared/cms/lrs1c69a1j/logos/6d3ce1f2e0f5455b86966077c20f5b42-png-w256.webp">
+    <meta property="og:type" content="webpage">
+    <title>Let Me Bing That For You</title>
+    <link href="//libs.bangbang93.com/css?family=Permanent+Marker" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<img src="img/arrow.png" id="arrow">
+    <div class="background-container"></div>
+    <div class="container">
+        <div class="search-wrapper">
+            <div class="logo-container">
+                <h1>需要我帮你<img src="https://edgestatic.azureedge.net/shared/cms/lrs1c69a1j/logos/6d3ce1f2e0f5455b86966077c20f5b42-png-w256.webp" alt="Bing" class="bing-logo">么</h1>
+            </div>
+            <div class="search-box">
+                <div class="search-bar">
+                    <div class="search-icon">
+                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                    </div>
+                    <input type="text" class="search-text" id="kw" placeholder="搜索...">
+                </div>
+                <div class="button-group">
+                    <button class="btn" id="search">Bing 搜索</button>
+                    <button class="btn" id="lucky">每日一图</button>
+                </div>
+            </div>
+        </div>
+        <div id="instructions">
+            输入一个问题，然后按Bing 搜索
+        </div>
+        <div class="link" style="display: none" id="link">
+            <input type="text" readonly id="lmbtfyLink" class="copyable">
+            <div>
+                <a class="link_button" href="javascript:void(0)" id="copy" data-clipboard-target="#lmbtfyLink">复制</a>
+                <a class="link_button" href="javascript:void(0)" id="go">预览</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div>
+            Made By 
+        <a href="https://github.com/FrecklyComb1728/Let-Me-Search-For-You">Mifeng</a>&nbsp;
+        </div>
+    </footer>
+</body>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="js/script.js"></script>
+</html>
