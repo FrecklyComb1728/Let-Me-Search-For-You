@@ -33,6 +33,21 @@
 <body class="bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200 min-h-screen font-['Inter'] flex flex-col">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
     <!-- 头部区域 -->
+    <!-- 添加了西班牙语切换语言模块 -->
+    <div class="fixed top-4 right-4 z-50">
+  <a href="?lang=es" class="flex items-center space-x-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-primary-200 hover:bg-primary-100 transition-all text-sm font-medium text-primary-700">
+    <span>🌐</span>
+    <span>Español</span>
+  </a>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('lang') === 'es') {
+    window.location.href = './es/index.html';
+  }
+</script>
+    
     <div class="text-center mb-16">
       <div class="inline-block p-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full mb-6">
         <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg px-8 py-4 rounded-full bg-white/20 backdrop-blur-sm">

@@ -1,0 +1,33 @@
+name: 自动更新西班牙语版
+
+on:
+  workflow_dispatch: # 允许你手动点击按钮更新
+  schedule:
+    - cron: '0 * * * *' # 每小时自动检查一次更新
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 更新子模块
+        run: |
+          git submodule update --remote --merge
+          
+      - name: 提交并推送更改
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "自动同步 es 仓库最新内容"
+            git push
+          else
+            echo "没有发现新内容，跳过更新。"
+          fi
