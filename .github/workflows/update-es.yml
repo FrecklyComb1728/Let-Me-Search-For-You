@@ -4,7 +4,8 @@ on:
   workflow_dispatch: # 允许你手动点击按钮更新
   schedule:
     - cron: '0 * * * *' # 每小时自动检查一次更新
-
+permissions:
+  contents: write
 jobs:
   update-submodule:
     runs-on: ubuntu-latest
