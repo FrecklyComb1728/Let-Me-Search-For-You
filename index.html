@@ -12,11 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ==========================================================
-       1. 设计令牌
-       ========================================================== */
     :root {
-      /* —— 颜色 —— */
       --color-bg-base:       #EFFAF8;
       --color-bg-surface:    #FBFEFD;
       --color-bg-raised:     #E4F5F2;
@@ -42,7 +38,6 @@
       --color-error:         #C4453A;
       --color-error-soft:    rgba(196, 69, 58, 0.12);
 
-      /* —— 字号 —— */
       --text-xs:   0.75rem;
       --text-sm:   0.875rem;
       --text-base: 1rem;
@@ -50,7 +45,6 @@
       --text-xl:   1.25rem;
       --text-2xl:  1.5rem;
 
-      /* —— 间距 —— */
       --space-1:  0.25rem;
       --space-2:  0.5rem;
       --space-3:  0.75rem;
@@ -62,37 +56,31 @@
       --space-9:  6rem;
       --space-10: 8rem;
 
-      /* —— 圆角 —— */
       --radius-sm:   0.25rem;
       --radius-md:   0.5rem;
       --radius-lg:   0.75rem;
       --radius-xl:   1rem;
       --radius-full: 9999px;
 
-      /* —— 阴影 —— */
       --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
       --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
 
-      /* —— 字体 —— */
       --font-sans: 'Plus Jakarta Sans', 'PingFang SC', 'Hiragino Sans GB',
                    'Microsoft YaHei', sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
-      /* —— 容器 —— */
       --container-sm: 48rem;
       --container-md: 64rem;
       --container-lg: 72rem;
       --container-xl: 80rem;
 
-      /* —— 动画时长 —— */
       --duration-instant: 0ms;
       --duration-fast:    150ms;
       --duration-normal:  200ms;
       --duration-slow:    300ms;
 
-      /* —— 缓动曲线 —— */
       --ease-out:    cubic-bezier(0.33, 1, 0.68, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
       --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -132,9 +120,6 @@
       }
     }
 
-    /* ==========================================================
-       2. 基础重置
-       ========================================================== */
     *, *::before, *::after { box-sizing: border-box; }
     [hidden] { display: none !important; }
 
@@ -173,9 +158,6 @@
       color: var(--color-text-primary);
     }
 
-    /* ==========================================================
-       3. 布局骨架
-       ========================================================== */
     .site-main {
       flex: 1 0 auto;
       width: 100%;
@@ -184,9 +166,6 @@
       padding: 0 var(--space-4);
     }
 
-    /* ==========================================================
-       4. 导航栏
-       ========================================================== */
     .navbar {
       position: sticky;
       top: 0;
@@ -243,9 +222,6 @@
 
     .brand__accent { color: var(--color-primary); }
 
-    /* ==========================================================
-       5. 按钮
-       ========================================================== */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -311,9 +287,6 @@
       font-size: var(--text-xs);
     }
 
-    /* ==========================================================
-       6. 徽章
-       ========================================================== */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -332,9 +305,6 @@
       color: var(--color-primary);
     }
 
-    /* ==========================================================
-       7. Hero
-       ========================================================== */
     .hero {
       display: grid;
       align-items: center;
@@ -386,9 +356,6 @@
       .hero__art { display: block; }
     }
 
-    /* ==========================================================
-       8. 搜索引擎网格
-       ========================================================== */
     .engine-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -402,9 +369,6 @@
       .engine-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
-    /* ==========================================================
-       9. 搜索引擎卡片
-       ========================================================== */
     .engine-card {
       position: relative;
       display: flex;
@@ -433,7 +397,6 @@
       outline-offset: 2px;
     }
 
-    /* 推荐卡片：间距、背景、尺寸均有差异化 */
     .engine-card--featured {
       padding: var(--space-5);
       background-color: color-mix(in srgb, var(--color-primary) 5%, var(--color-bg-surface));
@@ -535,9 +498,6 @@
       }
     }
 
-    /* ==========================================================
-       10. 骨架屏
-       ========================================================== */
     .skeleton-card {
       position: relative;
       min-height: 176px;
@@ -562,9 +522,6 @@
       animation: shimmer 1.4s var(--ease-in-out) infinite;
     }
 
-    /* ==========================================================
-       11. 空状态 / 错误面板
-       ========================================================== */
     .empty-hint {
       grid-column: 1 / -1;
       padding: var(--space-6) var(--space-4);
@@ -606,9 +563,6 @@
       background-color: color-mix(in srgb, var(--color-error) 12%, transparent);
     }
 
-    /* ==========================================================
-       12. 页脚
-       ========================================================== */
     .site-footer {
       flex: none;
       margin-top: var(--space-7);
@@ -666,9 +620,6 @@
       object-fit: contain;
     }
 
-    /* ==========================================================
-       13. 动画
-       ========================================================== */
     @keyframes fade-in {
       from { opacity: 0; }
       to   { opacity: 1; }
@@ -699,9 +650,6 @@
       }
     }
 
-    /* ==========================================================
-       14. 窄屏微调
-       ========================================================== */
     @media (max-width: 479px) {
       .site-main { padding: 0 var(--space-3); }
       .navbar__inner { padding: var(--space-2) var(--space-3); }
@@ -712,7 +660,6 @@
   </style>
 </head>
 <body>
-  <!-- 导航栏 -->
   <header class="navbar">
     <div class="navbar__inner">
       <a class="brand" href="./index.html" aria-label="搜索聚合首页">
@@ -733,7 +680,6 @@
   </header>
 
   <main class="site-main">
-    <!-- Hero -->
     <section class="hero">
       <div class="hero__copy">
         <span class="badge badge-primary">搜索引擎聚合</span>
@@ -755,10 +701,8 @@
       </div>
     </section>
 
-    <!-- 搜索引擎列表 -->
     <div class="engine-grid" id="engines" aria-busy="true" aria-live="polite"></div>
 
-    <!-- 错误面板 -->
     <div class="error-panel" id="error-panel" role="alert" hidden>
       <p class="error-panel__title">配置加载失败</p>
       <p class="error-panel__text">
@@ -768,7 +712,6 @@
     </div>
   </main>
 
-  <!-- 页脚 -->
   <footer class="site-footer">
     <div class="footer__inner">
       <p class="footer__copy" id="copyright">© Let Me Search For You. 保留所有权利。</p>
@@ -780,21 +723,18 @@
   (function () {
     'use strict';
 
-    /* ============ 配置 ============ */
     var CONFIG_URL = 'config.json';
     var LANG_REDIRECTS = { es: './es/index.html' };
     var SKELETON_COUNT = 6;
     var STAGGER_STEP = 40;
     var STAGGER_CAP = 9;
 
-    /* 静态箭头图标（固定常量，无用户数据） */
     var ARROW_SVG =
       '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">' +
         '<path d="M3 8h9m0 0-3.4-3.4M12 8l-3.4 3.4" stroke="currentColor" ' +
               'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
       '</svg>';
 
-    /* ============ 工具 ============ */
     function $(id) { return document.getElementById(id); }
 
     function el(tag, className, text) {
@@ -804,7 +744,6 @@
       return node;
     }
 
-    /** 仅允许 http(s) / mailto / tel / 相对路径 / 锚点 */
     function isSafeUrl(value) {
       if (typeof value !== 'string') return false;
       var url = value.trim();
@@ -816,7 +755,6 @@
       return isSafeUrl(value) ? value.trim() : '#';
     }
 
-    /* ============ 语言重定向（兼容 ?lang=es） ============ */
     function redirectForLanguage() {
       var lang;
       try {
@@ -834,7 +772,6 @@
       window.location.replace(target);
     }
 
-    /* ============ 配置加载 ============ */
     function loadConfig() {
       return fetch(CONFIG_URL, { cache: 'no-cache' }).then(function (response) {
         if (!response.ok) {
@@ -844,7 +781,6 @@
       });
     }
 
-    /* ============ 骨架屏 ============ */
     function renderSkeletons(grid, count) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < count; i++) {
@@ -854,7 +790,6 @@
       grid.setAttribute('aria-busy', 'true');
     }
 
-    /* ============ 图标构建 ============ */
     function buildIcon(engine, featured) {
       var box = el('div', 'engine-card__icon');
       var size = featured ? 40 : 30;
@@ -886,7 +821,6 @@
       return box;
     }
 
-    /* ============ 卡片构建 ============ */
     function buildCard(engine, index) {
       var featured = !!engine.recommended;
 
@@ -895,26 +829,21 @@
       card.href = safeUrl(engine.url);
       card.style.animationDelay = (Math.min(index, STAGGER_CAP) * STAGGER_STEP) + 'ms';
 
-      /* 图标 */
       card.appendChild(buildIcon(engine, featured));
 
-      /* 名称 */
       var name = (typeof engine.name === 'string' && engine.name.trim())
         ? engine.name.trim()
         : '未命名';
       card.appendChild(el('h3', 'engine-card__name', name));
 
-      /* 描述 */
       if (typeof engine.description === 'string' && engine.description.trim()) {
         card.appendChild(el('p', 'engine-card__desc', engine.description.trim()));
       }
 
-      /* CTA */
       var cta = el('span', 'engine-card__cta');
       cta.innerHTML = '<span>立即使用</span>' + ARROW_SVG;
       card.appendChild(cta);
 
-      /* 推荐徽章 */
       if (featured) {
         var badge = el('span', 'badge badge-primary engine-card__badge', '推荐');
         card.appendChild(badge);
@@ -942,7 +871,6 @@
       grid.appendChild(fragment);
     }
 
-    /* ============ 页脚 ============ */
     function renderFooter(footer) {
       if (!footer || typeof footer !== 'object') return;
 
@@ -983,7 +911,6 @@
       });
     }
 
-    /* ============ 元信息 ============ */
     function applyMeta(config) {
       var title = (typeof config.title === 'string') ? config.title.trim() : '';
       if (title) {
@@ -991,7 +918,6 @@
         var short = title.split('|')[0].trim();
         var titleNode = $('main-title');
         titleNode.textContent = short || title;
-        // 重新插入品牌强调点
         var accent = el('span', 'hero__title-accent', '。');
         titleNode.appendChild(accent);
       }
@@ -1002,7 +928,6 @@
       subtitleNode.hidden = !subtitle;
     }
 
-    /* ============ 错误处理 ============ */
     function showError(error) {
       console.error('[search-hub] 配置加载失败：', error);
 
@@ -1019,7 +944,6 @@
       }, { once: true });
     }
 
-    /* ============ 初始化 ============ */
     function init() {
       redirectForLanguage();
 
