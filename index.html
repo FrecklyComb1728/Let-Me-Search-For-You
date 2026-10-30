@@ -2,191 +2,1051 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>让我为你搜索 | Let Me Search That For You</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50: '#E8FFFB',
-              100: '#BAFAF1',
-              200: '#8DF4EA',
-              300: '#63EFE5',
-              400: '#3AE9E4',
-              500: '#13E4E4',
-              600: '#0CB8BE',
-              700: '#0A9CA1',
-              800: '#087F84',
-              900: '#066367',
-              950: '#04464A',
-            }
-          }
-        }
+  <meta name="description" content="选择你喜欢的搜索引擎，快速获取你需要的信息。">
+  <meta name="color-scheme" content="light dark">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       1. 设计令牌
+       ========================================================== */
+    :root {
+      /* —— 颜色 —— */
+      --color-bg-base:       #EFFAF8;
+      --color-bg-surface:    #FBFEFD;
+      --color-bg-raised:     #E4F5F2;
+      --color-bg-overlay:    rgba(4, 59, 62, 0.40);
+
+      --color-text-primary:   #043B3E;
+      --color-text-secondary: #1B5A5D;
+      --color-text-muted:     #4B7C7E;
+      --color-text-dimmed:    #83A9AA;
+
+      --color-border-subtle: rgba(10, 107, 112, 0.10);
+      --color-border-base:   rgba(10, 107, 112, 0.18);
+      --color-border-strong: rgba(10, 107, 112, 0.38);
+
+      --color-primary:       #087F84;
+      --color-primary-soft:  rgba(8, 127, 132, 0.12);
+      --color-primary-hover: #066367;
+
+      --color-success:       #2E8F62;
+      --color-success-soft:  rgba(46, 143, 98, 0.12);
+      --color-warning:       #B87A24;
+      --color-warning-soft:  rgba(184, 122, 36, 0.12);
+      --color-error:         #C4453A;
+      --color-error-soft:    rgba(196, 69, 58, 0.12);
+
+      /* —— 字号 —— */
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-lg:   1.125rem;
+      --text-xl:   1.25rem;
+      --text-2xl:  1.5rem;
+
+      /* —— 间距 —— */
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-5:  1.5rem;
+      --space-6:  2rem;
+      --space-7:  3rem;
+      --space-8:  4rem;
+      --space-9:  6rem;
+      --space-10: 8rem;
+
+      /* —— 圆角 —— */
+      --radius-sm:   0.25rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-full: 9999px;
+
+      /* —— 阴影 —— */
+      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
+
+      /* —— 字体 —— */
+      --font-sans: 'Plus Jakarta Sans', 'PingFang SC', 'Hiragino Sans GB',
+                   'Microsoft YaHei', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+      /* —— 容器 —— */
+      --container-sm: 48rem;
+      --container-md: 64rem;
+      --container-lg: 72rem;
+      --container-xl: 80rem;
+
+      /* —— 动画时长 —— */
+      --duration-instant: 0ms;
+      --duration-fast:    150ms;
+      --duration-normal:  200ms;
+      --duration-slow:    300ms;
+
+      /* —— 缓动曲线 —— */
+      --ease-out:    cubic-bezier(0.33, 1, 0.68, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg-base:       #06282B;
+        --color-bg-surface:    #0A3438;
+        --color-bg-raised:     #0E4044;
+        --color-bg-overlay:    rgba(0, 0, 0, 0.60);
+
+        --color-text-primary:   #E6FAF8;
+        --color-text-secondary: #B8DEDC;
+        --color-text-muted:     #7FA9A8;
+        --color-text-dimmed:    #5A8281;
+
+        --color-border-subtle: rgba(141, 244, 234, 0.10);
+        --color-border-base:   rgba(141, 244, 234, 0.18);
+        --color-border-strong: rgba(141, 244, 234, 0.40);
+
+        --color-primary:       #3AE9E4;
+        --color-primary-soft:  rgba(58, 233, 228, 0.16);
+        --color-primary-hover: #63EFE5;
+
+        --color-success:       #5CC98C;
+        --color-success-soft:  rgba(92, 201, 140, 0.16);
+        --color-warning:       #E0A64B;
+        --color-warning-soft:  rgba(224, 166, 75, 0.16);
+        --color-error:         #E77A6E;
+        --color-error-soft:    rgba(231, 122, 110, 0.16);
+
+        --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+        --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.28), 0 1px 2px -1px rgba(0, 0, 0, 0.20);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.30), 0 2px 4px -2px rgba(0, 0, 0, 0.20);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.30), 0 4px 6px -4px rgba(0, 0, 0, 0.20);
       }
     }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200 min-h-screen font-['Inter'] flex flex-col">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
-    <!-- 头部区域 -->
-    <!-- 添加了西班牙语切换语言模块 -->
-    <div class="fixed top-4 right-4 z-50">
-  <a href="?lang=es" class="flex items-center space-x-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-primary-200 hover:bg-primary-100 transition-all text-sm font-medium text-primary-700">
-    <span>🌐</span>
-    <span>Español</span>
-  </a>
-</div>
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('lang') === 'es') {
-    window.location.href = './es/index.html';
-  }
-</script>
-    
-    <div class="text-center mb-16">
-      <div class="inline-block p-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full mb-6">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg px-8 py-4 rounded-full bg-white/20 backdrop-blur-sm">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-primary-100" id="main-title">
-            Let Me Search That For You
-          </span>
+    /* ==========================================================
+       2. 基础重置
+       ========================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font-sans);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      background-color: var(--color-bg-base);
+      background-image:
+        radial-gradient(1100px 720px at 0% -10%,
+          color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 62%),
+        radial-gradient(880px 560px at 108% 8%,
+          color-mix(in srgb, var(--color-primary) 7%, transparent), transparent 58%);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { line-height: 1.3; color: var(--color-text-primary); }
+
+    a { color: inherit; }
+
+    img { display: block; max-width: 100%; }
+
+    ::selection {
+      background-color: var(--color-primary-soft);
+      color: var(--color-text-primary);
+    }
+
+    /* ==========================================================
+       3. 布局骨架
+       ========================================================== */
+    .site-main {
+      flex: 1 0 auto;
+      width: 100%;
+      max-width: var(--container-md);
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+
+    /* ==========================================================
+       4. 导航栏
+       ========================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: color-mix(in srgb, var(--color-bg-base) 82%, transparent);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: var(--container-md);
+      margin: 0 auto;
+      padding: var(--space-2) var(--space-4);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      color: var(--color-text-primary);
+      border-radius: var(--radius-md);
+    }
+
+    .brand:focus-visible {
+      outline: 3px solid var(--color-border-strong);
+      outline-offset: 2px;
+    }
+
+    .brand__mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-primary-soft);
+      color: var(--color-primary);
+      flex: none;
+    }
+
+    .brand__mark svg { width: 18px; height: 18px; }
+
+    .brand__text {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .brand__accent { color: var(--color-primary); }
+
+    /* ==========================================================
+       5. 按钮
+       ========================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      line-height: 1;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out),
+                  transform var(--duration-fast) var(--ease-out);
+      white-space: nowrap;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--color-border-strong);
+      outline-offset: 2px;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg-base);
+    }
+    .btn-primary:hover { background-color: var(--color-primary-hover); }
+
+    .btn-secondary {
+      background-color: var(--color-bg-surface);
+      color: var(--color-text-primary);
+      border-color: var(--color-border-base);
+    }
+    .btn-secondary:hover {
+      background-color: var(--color-bg-raised);
+      border-color: var(--color-border-strong);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--color-text-secondary);
+    }
+    .btn-ghost:hover {
+      background-color: var(--color-bg-raised);
+      color: var(--color-text-primary);
+    }
+
+    .btn-sm {
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--text-xs);
+    }
+
+    /* ==========================================================
+       6. 徽章
+       ========================================================== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      height: 20px;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .badge-primary {
+      background-color: var(--color-primary-soft);
+      color: var(--color-primary);
+    }
+
+    /* ==========================================================
+       7. Hero
+       ========================================================== */
+    .hero {
+      display: grid;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-7) 0 var(--space-6);
+      animation: page-enter var(--duration-slow) var(--ease-spring) both;
+    }
+
+    .hero__copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .hero__title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    .hero__title-accent { color: var(--color-primary); }
+
+    .hero__subtitle {
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      max-width: 34rem;
+      text-wrap: pretty;
+    }
+
+    .hero__art {
+      display: none;
+      color: var(--color-primary);
+      justify-self: end;
+      width: 100%;
+      max-width: 240px;
+    }
+
+    .hero__art svg { width: 100%; height: auto; }
+
+    @media (min-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: var(--space-6);
+        padding: var(--space-8) 0 var(--space-7);
+      }
+      .hero__art { display: block; }
+    }
+
+    /* ==========================================================
+       8. 搜索引擎网格
+       ========================================================== */
+    .engine-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .engine-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+      .engine-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    /* ==========================================================
+       9. 搜索引擎卡片
+       ========================================================== */
+    .engine-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      background-color: var(--color-bg-surface);
+      border: 1px solid var(--color-border-base);
+      border-radius: var(--radius-lg);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      contain: paint;
+      animation: slide-up var(--duration-normal) var(--ease-out) both;
+      transition: border-color var(--duration-normal) var(--ease-out),
+                  box-shadow var(--duration-normal) var(--ease-out);
+    }
+
+    .engine-card:hover {
+      border-color: var(--color-border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .engine-card:focus-visible {
+      outline: 3px solid var(--color-border-strong);
+      outline-offset: 2px;
+    }
+
+    /* 推荐卡片：间距、背景、尺寸均有差异化 */
+    .engine-card--featured {
+      padding: var(--space-5);
+      background-color: color-mix(in srgb, var(--color-primary) 5%, var(--color-bg-surface));
+      border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border-base));
+    }
+
+    .engine-card__icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-primary-soft);
+      flex: none;
+    }
+
+    .engine-card__icon img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .engine-card__initial {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .engine-card__name {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .engine-card__desc {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      text-wrap: pretty;
+    }
+
+    .engine-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-top: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .engine-card__cta svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .engine-card--featured .engine-card__cta {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      background-color: var(--color-primary-soft);
+      font-size: var(--text-base);
+    }
+
+    .engine-card__badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+    }
+
+    @media (min-width: 1024px) {
+      .engine-card--featured {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: start;
+        column-gap: var(--space-4);
+        row-gap: var(--space-1);
+      }
+
+      .engine-card--featured .engine-card__icon {
+        grid-row: span 3;
+        width: 64px;
+        height: 64px;
+      }
+
+      .engine-card--featured .engine-card__icon img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .engine-card--featured .engine-card__name { margin-top: var(--space-1); }
+
+      .engine-card--featured .engine-card__cta {
+        grid-column: 2;
+        justify-self: start;
+        margin-top: var(--space-2);
+      }
+    }
+
+    /* ==========================================================
+       10. 骨架屏
+       ========================================================== */
+    .skeleton-card {
+      position: relative;
+      min-height: 176px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-subtle);
+      background-color: var(--color-bg-raised);
+      overflow: hidden;
+      contain: paint;
+    }
+
+    .skeleton-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--color-bg-surface) 70%, transparent) 50%,
+        transparent 100%
+      );
+      animation: shimmer 1.4s var(--ease-in-out) infinite;
+    }
+
+    /* ==========================================================
+       11. 空状态 / 错误面板
+       ========================================================== */
+    .empty-hint {
+      grid-column: 1 / -1;
+      padding: var(--space-6) var(--space-4);
+      text-align: center;
+      border: 1px dashed var(--color-border-base);
+      border-radius: var(--radius-lg);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .error-panel {
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      border: 1px solid color-mix(in srgb, var(--color-error) 24%, transparent);
+      border-radius: var(--radius-md);
+      background-color: var(--color-error-soft);
+      color: var(--color-error);
+      animation: slide-up var(--duration-normal) var(--ease-out) both;
+    }
+
+    .error-panel__title {
+      font-size: var(--text-base);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    .error-panel__text {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      margin-bottom: var(--space-3);
+      color: color-mix(in srgb, var(--color-error) 85%, var(--color-text-secondary));
+    }
+
+    .error-panel__text code {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: 0 var(--space-1);
+      border-radius: var(--radius-sm);
+      background-color: color-mix(in srgb, var(--color-error) 12%, transparent);
+    }
+
+    /* ==========================================================
+       12. 页脚
+       ========================================================== */
+    .site-footer {
+      flex: none;
+      margin-top: var(--space-7);
+      border-top: 1px solid var(--color-border-subtle);
+      background-color: color-mix(in srgb, var(--color-bg-base) 78%, transparent);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: var(--container-md);
+      margin: 0 auto;
+      padding: var(--space-5) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .footer__copy { font-size: var(--text-sm); }
+
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .footer__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .footer__link:hover { color: var(--color-text-primary); }
+
+    .footer__link:focus-visible {
+      outline: 3px solid var(--color-border-strong);
+      outline-offset: 2px;
+    }
+
+    .footer__link img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    /* ==========================================================
+       13. 动画
+       ========================================================== */
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes page-enter {
+      from { opacity: 0; transform: translateY(8px) scale(1.02); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes shimmer {
+      to { transform: translateX(100%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ==========================================================
+       14. 窄屏微调
+       ========================================================== */
+    @media (max-width: 479px) {
+      .site-main { padding: 0 var(--space-3); }
+      .navbar__inner { padding: var(--space-2) var(--space-3); }
+      .footer__inner { padding: var(--space-4) var(--space-3); }
+      .hero { padding: var(--space-5) 0 var(--space-5); }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a class="brand" href="./index.html" aria-label="搜索聚合首页">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+            <circle cx="10.5" cy="10.5" r="6.2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m15.2 15.2 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__text">Search<span class="brand__accent">·</span>Hub</span>
+      </a>
+
+      <a class="btn btn-secondary btn-sm" href="./es/index.html" hreflang="es" lang="es" title="Cambiar a español">
+        <span aria-hidden="true">🌐</span>
+        <span>Español</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__copy">
+        <span class="badge badge-primary">搜索引擎聚合</span>
+        <h1 class="hero__title" id="main-title">
+          让我为你搜索<span class="hero__title-accent">。</span>
         </h1>
+        <p class="hero__subtitle" id="subtitle">选择你喜欢的搜索引擎，快速获取你需要的信息</p>
       </div>
-      <div class="max-w-2xl mx-auto bg-white/10  rounded-2xl p-3 shadow-lg border-white/5">
-        <p class="text-lg text-primary-700" id="subtitle">
-          选择你喜欢的搜索引擎，快速获取你需要的信息
-        </p>
+
+      <div class="hero__art" aria-hidden="true">
+        <svg viewBox="0 0 220 220" fill="none" focusable="false">
+          <circle cx="110" cy="110" r="92" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.5"/>
+          <circle cx="110" cy="110" r="64" stroke="currentColor" stroke-opacity="0.48" stroke-width="1.5" stroke-dasharray="3 7"/>
+          <circle cx="110" cy="110" r="30" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="110" cy="110" r="7" fill="currentColor"/>
+          <line x1="110" y1="110" x2="176" y2="176" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="176" cy="176" r="5" stroke="currentColor" stroke-width="2"/>
+        </svg>
       </div>
+    </section>
+
+    <!-- 搜索引擎列表 -->
+    <div class="engine-grid" id="engines" aria-busy="true" aria-live="polite"></div>
+
+    <!-- 错误面板 -->
+    <div class="error-panel" id="error-panel" role="alert" hidden>
+      <p class="error-panel__title">配置加载失败</p>
+      <p class="error-panel__text">
+        请确认 <code>config.json</code> 与页面位于同一目录，且通过 HTTP 服务访问（而非 <code>file://</code>）。
+      </p>
+      <button type="button" class="btn btn-primary btn-sm" id="retry-btn">重新加载</button>
     </div>
-    
-    <!-- 搜索引擎卡片区域 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="search-engines-container">
-      <!-- 搜索引擎卡片将通过JavaScript动态生成 -->
-    </div>
-  </div>
-  
+  </main>
+
   <!-- 页脚 -->
-  <footer class="border-t border-primary-200/50 bg-white/30 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p class="text-primary-600 text-sm" id="copyright">
-            © Let Me Search For You. 保留所有权利。
-          </p>
-        </div>
-        <div class="flex space-x-6" id="footer-links">
-          <!-- 页脚链接将通过JavaScript动态生成 -->
-        </div>
-      </div>
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <p class="footer__copy" id="copyright">© Let Me Search For You. 保留所有权利。</p>
+      <nav class="footer__links" id="footer-links" aria-label="相关链接"></nav>
     </div>
   </footer>
 
   <script>
-    // 加载配置文件
-    async function loadConfig() {
+  (function () {
+    'use strict';
+
+    /* ============ 配置 ============ */
+    var CONFIG_URL = 'config.json';
+    var LANG_REDIRECTS = { es: './es/index.html' };
+    var SKELETON_COUNT = 6;
+    var STAGGER_STEP = 40;
+    var STAGGER_CAP = 9;
+
+    /* 静态箭头图标（固定常量，无用户数据） */
+    var ARROW_SVG =
+      '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">' +
+        '<path d="M3 8h9m0 0-3.4-3.4M12 8l-3.4 3.4" stroke="currentColor" ' +
+              'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>';
+
+    /* ============ 工具 ============ */
+    function $(id) { return document.getElementById(id); }
+
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined && text !== null) node.textContent = String(text);
+      return node;
+    }
+
+    /** 仅允许 http(s) / mailto / tel / 相对路径 / 锚点 */
+    function isSafeUrl(value) {
+      if (typeof value !== 'string') return false;
+      var url = value.trim();
+      if (!url) return false;
+      return /^(?:https?:\/\/|mailto:|tel:|\/|\.{1,2}\/|#)/i.test(url);
+    }
+
+    function safeUrl(value) {
+      return isSafeUrl(value) ? value.trim() : '#';
+    }
+
+    /* ============ 语言重定向（兼容 ?lang=es） ============ */
+    function redirectForLanguage() {
+      var lang;
       try {
-        const response = await fetch('config.json');
+        lang = new URLSearchParams(window.location.search).get('lang');
+      } catch (e) {
+        return;
+      }
+      if (!lang) return;
+
+      var target = LANG_REDIRECTS[lang.toLowerCase()];
+      if (!target) return;
+
+      if (/(^|\/)es\/index\.html$/i.test(window.location.pathname)) return;
+
+      window.location.replace(target);
+    }
+
+    /* ============ 配置加载 ============ */
+    function loadConfig() {
+      return fetch(CONFIG_URL, { cache: 'no-cache' }).then(function (response) {
         if (!response.ok) {
-          throw new Error('无法加载配置文件');
+          throw new Error('config.json 请求失败：HTTP ' + response.status);
         }
-        return await response.json();
-      } catch (error) {
-        console.error('加载配置文件失败:', error);
-        return null;
-      }
-    }
-
-    // 渲染搜索引擎卡片
-    function renderSearchEngines(engines) {
-      const container = document.getElementById('search-engines-container');
-      container.innerHTML = '';
-
-      engines.forEach(engine => {
-        const card = document.createElement('div');
-        card.className = 'group relative';
-        
-        const iconHtml = engine.icon ? `<img src="${engine.icon}" alt="${engine.name} icon" class="h-12 w-12" />` : '';
-        
-        card.innerHTML = `
-          <div class="absolute -inset-0.5 bg-gradient-to-r from-primary-400 to-primary-600 rounded-2xl blur opacity-25 group-hover:opacity-70 transition duration-300"></div>
-          <a href="${engine.url}" class="relative block bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg hover:shadow-2xl hover:bg-white/90 transition-all duration-300 overflow-hidden border border-white/30">
-            <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-primary-400 to-primary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-            <div class="flex flex-col items-center">
-              <div class="p-4 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full mb-6 shadow-inner">
-                ${iconHtml}
-              </div>
-              <h2 class="text-2xl font-bold text-primary-800 mb-2">${engine.name}</h2>
-              <p class="text-primary-600 text-center">${engine.description}</p>
-              <div class="mt-6 inline-flex items-center text-primary-600 font-medium bg-gradient-to-r from-primary-100 to-primary-200 px-4 py-2 rounded-full shadow-sm">
-                <span>立即使用</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              ${engine.recommended ? '<div class="absolute top-4 right-4 bg-gradient-to-r from-primary-400 to-primary-500 text-white text-xs px-2 py-1 rounded-full font-medium shadow-md">推荐</div>' : ''}
-            </div>
-          </a>
-        `;
-        
-        container.appendChild(card);
+        return response.json();
       });
     }
 
-    // 渲染页脚
+    /* ============ 骨架屏 ============ */
+    function renderSkeletons(grid, count) {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < count; i++) {
+        fragment.appendChild(el('div', 'skeleton-card'));
+      }
+      grid.replaceChildren(fragment);
+      grid.setAttribute('aria-busy', 'true');
+    }
+
+    /* ============ 图标构建 ============ */
+    function buildIcon(engine, featured) {
+      var box = el('div', 'engine-card__icon');
+      var size = featured ? 40 : 30;
+
+      function useFallback() {
+        var initial = el('span', 'engine-card__initial');
+        var name = (typeof engine.name === 'string' && engine.name.trim())
+          ? engine.name.trim()
+          : '?';
+        initial.textContent = name.charAt(0).toUpperCase();
+        initial.setAttribute('aria-hidden', 'true');
+        box.replaceChildren(initial);
+      }
+
+      if (typeof engine.icon === 'string' && engine.icon.trim()) {
+        var img = document.createElement('img');
+        img.src = engine.icon.trim();
+        img.alt = '';
+        img.width = size;
+        img.height = size;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.addEventListener('error', useFallback, { once: true });
+        box.appendChild(img);
+      } else {
+        useFallback();
+      }
+
+      return box;
+    }
+
+    /* ============ 卡片构建 ============ */
+    function buildCard(engine, index) {
+      var featured = !!engine.recommended;
+
+      var card = document.createElement('a');
+      card.className = 'engine-card' + (featured ? ' engine-card--featured' : '');
+      card.href = safeUrl(engine.url);
+      card.style.animationDelay = (Math.min(index, STAGGER_CAP) * STAGGER_STEP) + 'ms';
+
+      /* 图标 */
+      card.appendChild(buildIcon(engine, featured));
+
+      /* 名称 */
+      var name = (typeof engine.name === 'string' && engine.name.trim())
+        ? engine.name.trim()
+        : '未命名';
+      card.appendChild(el('h3', 'engine-card__name', name));
+
+      /* 描述 */
+      if (typeof engine.description === 'string' && engine.description.trim()) {
+        card.appendChild(el('p', 'engine-card__desc', engine.description.trim()));
+      }
+
+      /* CTA */
+      var cta = el('span', 'engine-card__cta');
+      cta.innerHTML = '<span>立即使用</span>' + ARROW_SVG;
+      card.appendChild(cta);
+
+      /* 推荐徽章 */
+      if (featured) {
+        var badge = el('span', 'badge badge-primary engine-card__badge', '推荐');
+        card.appendChild(badge);
+      }
+
+      return card;
+    }
+
+    function renderEngines(grid, engines) {
+      var list = Array.isArray(engines)
+        ? engines.filter(function (item) { return item && (item.name || item.url); })
+        : [];
+
+      grid.replaceChildren();
+
+      if (list.length === 0) {
+        grid.appendChild(el('p', 'empty-hint', '配置中还没有可用的搜索引擎。'));
+        return;
+      }
+
+      var fragment = document.createDocumentFragment();
+      list.forEach(function (engine, index) {
+        fragment.appendChild(buildCard(engine, index));
+      });
+      grid.appendChild(fragment);
+    }
+
+    /* ============ 页脚 ============ */
     function renderFooter(footer) {
-      if (footer.copyright) {
-        document.getElementById('copyright').textContent = footer.copyright;
+      if (!footer || typeof footer !== 'object') return;
+
+      if (typeof footer.copyright === 'string' && footer.copyright.trim()) {
+        $('copyright').textContent = footer.copyright.trim();
       }
 
-      const linksContainer = document.getElementById('footer-links');
-      linksContainer.innerHTML = '';
+      var nav = $('footer-links');
+      nav.replaceChildren();
 
-      footer.links.forEach(link => {
-        const linkElement = document.createElement('a');
-        linkElement.href = link.url;
-        linkElement.className = 'text-primary-600 hover:text-primary-800 transition-colors';
-        
-        if (link.icon) {
-          linkElement.innerHTML = `
-            <span class="sr-only">${link.name}</span>
-            <img src="${link.icon}" alt="${link.name} icon" class="h-6 w-6 hover:scale-110 transition-transform" />
-          `;
+      var links = Array.isArray(footer.links) ? footer.links : [];
+
+      links.forEach(function (link) {
+        if (!link || !link.url) return;
+
+        var anchor = el('a', 'footer__link');
+        anchor.href = safeUrl(link.url);
+        anchor.rel = 'noopener noreferrer';
+        if (/^https?:\/\//i.test(anchor.href)) anchor.target = '_blank';
+
+        if (typeof link.icon === 'string' && link.icon.trim()) {
+          var img = document.createElement('img');
+          img.src = link.icon.trim();
+          img.alt = link.name || '链接';
+          img.width = 20;
+          img.height = 20;
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.addEventListener('error', function () {
+            anchor.replaceChildren(document.createTextNode(link.name || '链接'));
+          }, { once: true });
+          anchor.appendChild(img);
         } else {
-          linkElement.className += ' text-sm hover:text-primary-800';
-          linkElement.textContent = link.name;
+          anchor.textContent = link.name || link.url;
         }
-        
-        linksContainer.appendChild(linkElement);
+
+        nav.appendChild(anchor);
       });
     }
 
-    // 初始化页面
-    async function initPage() {
-      const config = await loadConfig();
-      if (!config) return;
-
-      // 设置标题和副标题
-      document.title = config.title || document.title;
-      document.getElementById('main-title').textContent = config.title?.split('|')[0]?.trim() || 'Let Me Search That For You';
-      document.getElementById('subtitle').textContent = config.subtitle || '';
-
-      // 渲染搜索引擎
-      if (config.engines && Array.isArray(config.engines)) {
-        renderSearchEngines(config.engines);
+    /* ============ 元信息 ============ */
+    function applyMeta(config) {
+      var title = (typeof config.title === 'string') ? config.title.trim() : '';
+      if (title) {
+        document.title = title;
+        var short = title.split('|')[0].trim();
+        var titleNode = $('main-title');
+        titleNode.textContent = short || title;
+        // 重新插入品牌强调点
+        var accent = el('span', 'hero__title-accent', '。');
+        titleNode.appendChild(accent);
       }
 
-      // 渲染页脚
-      if (config.footer) {
-        renderFooter(config.footer);
-      }
+      var subtitle = (typeof config.subtitle === 'string') ? config.subtitle.trim() : '';
+      var subtitleNode = $('subtitle');
+      subtitleNode.textContent = subtitle;
+      subtitleNode.hidden = !subtitle;
     }
 
-    // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', initPage);
+    /* ============ 错误处理 ============ */
+    function showError(error) {
+      console.error('[search-hub] 配置加载失败：', error);
+
+      var grid = $('engines');
+      grid.replaceChildren();
+      grid.setAttribute('aria-busy', 'false');
+      grid.hidden = true;
+
+      var panel = $('error-panel');
+      panel.hidden = false;
+
+      $('retry-btn').addEventListener('click', function () {
+        window.location.reload();
+      }, { once: true });
+    }
+
+    /* ============ 初始化 ============ */
+    function init() {
+      redirectForLanguage();
+
+      var grid = $('engines');
+      renderSkeletons(grid, SKELETON_COUNT);
+
+      loadConfig()
+        .then(function (config) {
+          if (!config || typeof config !== 'object') {
+            throw new Error('config.json 内容格式不正确');
+          }
+
+          applyMeta(config);
+          renderEngines(grid, config.engines);
+          renderFooter(config.footer);
+
+          grid.setAttribute('aria-busy', 'false');
+        })
+        .catch(showError);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
   </script>
 </body>
 </html>
