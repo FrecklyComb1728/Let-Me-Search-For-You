@@ -419,6 +419,16 @@
       object-fit: contain;
     }
 
+    .engine-card--featured .engine-card__icon {
+      width: 64px;
+      height: 64px;
+    }
+
+    .engine-card--featured .engine-card__icon img {
+      width: 40px;
+      height: 40px;
+    }
+
     .engine-card__initial {
       font-size: var(--text-lg);
       font-weight: 700;
@@ -431,6 +441,11 @@
       font-size: var(--text-base);
       font-weight: 600;
       color: var(--color-text-primary);
+    }
+
+    .engine-card--featured .engine-card__name {
+      font-size: var(--text-lg);
+      font-weight: 700;
     }
 
     .engine-card__desc {
@@ -744,15 +759,43 @@
       return node;
     }
 
-    function isSafeUrl(value) {
-      if (typeof value !== 'string') return false;
-      var url = value.trim();
-      if (!url) return false;
-      return /^(?:https?:\/\/|mailto:|tel:|\/|\.{1,2}\/|#)/i.test(url);
+    /**
+     * 使用 new URL(value, base) 解析任意来源的 URL：
+     *  - 相对路径（如 "bing/"、"baidu/"）会被正确解析
+     *  - 只允许 http / https / mailto / tel
+     *  - 其它协议（javascript: / data: / vbscript: / file: 等）拒绝
+     * 返回 { href, external, ok }
+     */
+    function resolveUrl(value) {
+      if (typeof value !== 'string') return { href: '#', external: false, ok: false };
+      var raw = value.trim();
+      if (!raw) return { href: '#', external: false, ok: false };
+
+      var parsed;
+      try {
+        parsed = new URL(raw, window.location.href);
+      } catch (e) {
+        return { href: '#', external: false, ok: false };
+      }
+
+      var proto = parsed.protocol;
+      var allowed = proto === 'http:' || proto === 'https:' ||
+                    proto === 'mailto:' || proto === 'tel:';
+      if (!allowed) return { href: '#', external: false, ok: false };
+
+      var external = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw);
+      return { href: raw, external: external, ok: true };
     }
 
-    function safeUrl(value) {
-      return isSafeUrl(value) ? value.trim() : '#';
+    function safeIcon(value) {
+      if (typeof value !== 'string') return null;
+      var raw = value.trim();
+      if (!raw) return null;
+      try {
+        var parsed = new URL(raw, window.location.href);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return raw;
+      } catch (e) {}
+      return null;
     }
 
     function redirectForLanguage() {
@@ -793,6 +836,7 @@
     function buildIcon(engine, featured) {
       var box = el('div', 'engine-card__icon');
       var size = featured ? 40 : 30;
+      var iconUrl = safeIcon(engine.icon);
 
       function useFallback() {
         var initial = el('span', 'engine-card__initial');
@@ -804,9 +848,9 @@
         box.replaceChildren(initial);
       }
 
-      if (typeof engine.icon === 'string' && engine.icon.trim()) {
+      if (iconUrl) {
         var img = document.createElement('img');
-        img.src = engine.icon.trim();
+        img.src = iconUrl;
         img.alt = '';
         img.width = size;
         img.height = size;
@@ -823,11 +867,19 @@
 
     function buildCard(engine, index) {
       var featured = !!engine.recommended;
+      var resolved = resolveUrl(engine.url);
 
       var card = document.createElement('a');
       card.className = 'engine-card' + (featured ? ' engine-card--featured' : '');
-      card.href = safeUrl(engine.url);
       card.style.animationDelay = (Math.min(index, STAGGER_CAP) * STAGGER_STEP) + 'ms';
+
+      if (resolved.ok) {
+        card.href = resolved.href;
+      } else {
+        card.href = '#';
+        card.setAttribute('aria-disabled', 'true');
+        card.addEventListener('click', function (e) { e.preventDefault(); });
+      }
 
       card.appendChild(buildIcon(engine, featured));
 
@@ -886,14 +938,20 @@
       links.forEach(function (link) {
         if (!link || !link.url) return;
 
-        var anchor = el('a', 'footer__link');
-        anchor.href = safeUrl(link.url);
-        anchor.rel = 'noopener noreferrer';
-        if (/^https?:\/\//i.test(anchor.href)) anchor.target = '_blank';
+        var resolved = resolveUrl(link.url);
+        if (!resolved.ok) return;
 
-        if (typeof link.icon === 'string' && link.icon.trim()) {
+        var anchor = el('a', 'footer__link');
+        anchor.href = resolved.href;
+        if (resolved.external) {
+          anchor.target = '_blank';
+          anchor.rel = 'noopener noreferrer';
+        }
+
+        var iconUrl = safeIcon(link.icon);
+        if (iconUrl) {
           var img = document.createElement('img');
-          img.src = link.icon.trim();
+          img.src = iconUrl;
           img.alt = link.name || '链接';
           img.width = 20;
           img.height = 20;
